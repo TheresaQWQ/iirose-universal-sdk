@@ -39,3 +39,6 @@ export const playSound = (sound: string) => {
 
 // @ts-ignore
 export const uniqueId = () => window.Utils.smallTools.uniqueID() // 获取唯一ID
+
+// @ts-ignore
+if (module.hot) module.hot.accept();

@@ -150,3 +150,5 @@ export default (input: string) => {
     }
   }
 }
+// @ts-ignore
+if (module.hot) module.hot.accept();

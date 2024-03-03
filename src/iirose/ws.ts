@@ -46,3 +46,6 @@ rawSocket._send = (data: any) => {
 
   originSend(data)
 }
+
+// @ts-ignore
+if (module.hot) module.hot.accept();

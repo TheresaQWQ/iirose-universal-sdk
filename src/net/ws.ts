@@ -13,3 +13,6 @@ getHookedSocket(
     return true
   }
 )
+
+// @ts-ignore
+if (module.hot) module.hot.accept();

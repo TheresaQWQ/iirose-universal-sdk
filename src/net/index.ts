@@ -14,3 +14,6 @@ export default () => {
 
   return events
 }
+
+// @ts-ignore
+if (module.hot) module.hot.accept();

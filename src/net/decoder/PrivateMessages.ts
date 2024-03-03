@@ -41,3 +41,5 @@ export default (message: string) => {
     return flag
   }
 }
+// @ts-ignore
+if (module.hot) module.hot.accept();
