@@ -1,0 +1,43 @@
+.window {
+  position: fixed;
+  z-index: 99999;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+}
+
+.icon {
+  font-size: 16px;
+}
+
+.title {
+  font-size: 16px;
+  flex: 1;
+  padding-left: 18px;
+}
+
+.header {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header:active {
+  cursor: move;
+}
+
+.close::after {
+  content: "×";
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+.close:hover::after {
+  color: #ccc;
+}

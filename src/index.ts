@@ -1,7 +1,8 @@
 import * as IIROSE_Vars from './iirose/vars';
 import { EventEmitter } from './lib/events';
 import NetworkEvents from './net'
-import { SidebarItem, SidebarRoots } from './ui/sidebar';
+import { SidebarItem } from './ui/sidebar';
+import { WebWindow } from './ui/window';
 
 const globalExports: {
   iirose: typeof IIROSE_Vars,
@@ -21,7 +22,8 @@ const globalExports: {
   },
   ui: {
     sidebar: {
-      ItemBlock: SidebarItem
+      ItemBlock: SidebarItem,
+      WebWindow: WebWindow
     }
   },
   test: {}
@@ -42,17 +44,19 @@ export default globalExports;
 // @ts-ignore
 if (module.hot) module.hot.accept();
 
-// const sidebar = new SidebarItem(SidebarRoots.Navigation, {
-//   title: 'test',
+// const w = new WebWindow({
+//   title: "test",
 //   icon: {
-//     type: 'text',
+//     type: "text",
 //     text: "喵"
 //   },
-//   onClick: () => {
-//     console.log('test')
-//   }
+//   size: {
+//     resize: true,
+//     width: 500,
+//     height: 500
+//   },
+//   id: "test"
 // })
 
-// sidebar.init()
-
-// globalExports.test.sidebar = sidebar
+// w.init()
+// w.show()
