@@ -35,7 +35,7 @@ export class EventEmitter {
   }
 
   emit(event: string, ...args: any[]) {
-    // console.log(`[EventEmitter] Emitting event: ${event}, data`, args)
+    console.log(`[EventEmitter] Emitting event: ${event}, data`, args)
 
     if (!this.listeners.has(event)) {
       return;

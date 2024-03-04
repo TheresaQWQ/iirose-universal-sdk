@@ -3,6 +3,8 @@ import { EventEmitter } from './lib/events';
 import NetworkEvents from './net'
 import { SidebarItem } from './ui/sidebar';
 import { WebWindow } from './ui/window';
+import { FacePanel, FacePanelType } from './ui/face';
+import { events as ElementObserver } from './lib/observer';
 
 const globalExports: {
   iirose: typeof IIROSE_Vars,
@@ -44,19 +46,12 @@ export default globalExports;
 // @ts-ignore
 if (module.hot) module.hot.accept();
 
-// const w = new WebWindow({
-//   title: "test",
-//   icon: {
-//     type: "text",
-//     text: "喵"
-//   },
-//   size: {
-//     resize: true,
-//     width: 500,
-//     height: 500
-//   },
-//   id: "test"
-// })
+const p = new FacePanel({
+  type: FacePanelType.CustomPanel,
+  title: "test"
+})
 
-// w.init()
-// w.show()
+ElementObserver.on(".emojiContentBox", () => {
+  p.init()
+  p.refs.panel.innerText = 'test'
+})
