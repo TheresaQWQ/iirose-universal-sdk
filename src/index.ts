@@ -20,12 +20,18 @@ const globalExports: {
 } = {
   iirose: IIROSE_Vars,
   events: {
-    iirose: NetworkEvents()
+    iirose: NetworkEvents(),
+    element: ElementObserver
   },
   ui: {
     sidebar: {
-      ItemBlock: SidebarItem,
-      WebWindow: WebWindow
+      ItemBlock: SidebarItem
+    },
+    window: {
+      floatWindow: WebWindow
+    },
+    face: {
+      panel: FacePanel
     }
   },
   test: {}
@@ -46,12 +52,12 @@ export default globalExports;
 // @ts-ignore
 if (module.hot) module.hot.accept();
 
-const p = new FacePanel({
-  type: FacePanelType.CustomPanel,
-  title: "test"
-})
+// const p = new FacePanel({
+//   type: FacePanelType.CustomPanel,
+//   title: "test"
+// })
 
-ElementObserver.on(".emojiContentBox", () => {
-  p.init()
-  p.refs.panel.innerText = 'test'
-})
+// ElementObserver.on(".emojiContentBox", () => {
+//   p.init()
+//   p.refs.panel.innerText = 'test'
+// })
