@@ -42,3 +42,39 @@ export const uniqueId = () => window.Utils.smallTools.uniqueID() // 获取唯一
 
 // @ts-ignore
 if (module.hot) module.hot.accept();
+
+export const room = {
+  get raw() {
+    // @ts-ignore
+    return window.Objs.mapHolder.Assets.roomJson[window.roomn]
+  },
+
+  // 房间id
+  get id() {
+    const list = room.raw[0].split('_')
+    return list[list.length - 1]
+  },
+
+  get name() {
+    return room.raw[1]
+  },
+
+  get color() {
+    return room.raw[2]
+  },
+
+  // 房间类型
+  get type(): "Video" | "Music" | "Normal" | "MusicShare" | "VideoShare" {
+    // @ts-ignore
+    const typeMap = {
+      '200': 'VideoShare',
+      '100': 'MusicShare',
+      '000': "Normal",
+      '300': "Music",
+      '400': "Video"
+    }
+
+    // @ts-ignore
+    return typeMap[room.raw[3]]
+  }
+}

@@ -35,14 +35,22 @@ rawSocket._onmessage = (data: any) => {
   originOnmessage(data)
 }
 
-rawSocket._send = (data: any) => {
-  data.text().then((text: string) => {
-    for (const hook of hooks.onsend) {
-      if (!hook(text)) {
-        return
-      }
+const autoDecodeText = async (data: any) => {
+  try {
+    return await data.text()
+  } catch (error) {}
+
+  return data
+}
+
+rawSocket._send = async (data: any) => {
+  const text = await autoDecodeText(data)
+
+  for (const hook of hooks.onsend) {
+    if (!hook(text)) {
+      return
     }
-  })
+  }
 
   originSend(data)
 }

@@ -112,4 +112,9 @@ export class FacePanel {
     this.refs.panel.style.transform = 'translateX(10%)'
     this.refs.panel.style.display = 'none'
   }
+
+  public destroy () {
+    this.refs.pagination.remove()
+    this.refs.panel.remove()
+  }
 }

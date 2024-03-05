@@ -1,10 +1,12 @@
 import * as IIROSE_Vars from './iirose/vars';
 import { EventEmitter } from './lib/events';
 import NetworkEvents from './net'
-import { SidebarItem } from './ui/sidebar';
+import { SidebarItem, SidebarRoots } from './ui/sidebar';
 import { WebWindow } from './ui/window';
-import { FacePanel, FacePanelType } from './ui/face';
+import { FacePanel } from './ui/face';
 import { events as ElementObserver } from './lib/observer';
+import { icons, init as InitIcons } from './ui/icon';
+import * as toast from './ui/toast'
 
 const globalExports: {
   iirose: typeof IIROSE_Vars,
@@ -12,8 +14,13 @@ const globalExports: {
     [index: string]: EventEmitter
   },
   ui: {
-    [index: string]: {
-      [index: string]: any
+    icons: string[],
+    sidebar: typeof SidebarItem,
+    window: typeof WebWindow,
+    face: typeof FacePanel,
+    toast: {
+      musicToast: typeof toast.musicToast,
+      toast: typeof toast.toast
     }
   },
   test: any
@@ -24,15 +31,11 @@ const globalExports: {
     element: ElementObserver
   },
   ui: {
-    sidebar: {
-      ItemBlock: SidebarItem
-    },
-    window: {
-      floatWindow: WebWindow
-    },
-    face: {
-      panel: FacePanel
-    }
+    icons: icons,
+    sidebar: SidebarItem,
+    window: WebWindow,
+    face: FacePanel,
+    toast: toast
   },
   test: {}
 }
@@ -42,6 +45,7 @@ window.OwOSDK = globalExports;
 
 export default globalExports;
 
+InitIcons();
 
 (function (c: any, l: any, a: any, r: any, i: any, t?: any, y?: any) {
   c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
@@ -52,12 +56,16 @@ export default globalExports;
 // @ts-ignore
 if (module.hot) module.hot.accept();
 
-// const p = new FacePanel({
-//   type: FacePanelType.CustomPanel,
-//   title: "test"
-// })
+const p = new SidebarItem(SidebarRoots.Navigation, {
+  icon: {
+    type: 'iirose',
+    iirose: 'apps'
+  },
+  title: "test",
+  onClick: () => {
+    p.destroy()
+    // alert('done')
+  }
+})
 
-// ElementObserver.on(".emojiContentBox", () => {
-//   p.init()
-//   p.refs.panel.innerText = 'test'
-// })
+p.init()

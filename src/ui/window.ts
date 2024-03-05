@@ -169,12 +169,17 @@ export class WebWindow {
     this.refs.root.style.height = `${height}px`
   }
 
-  show () {
+  public show () {
     this.refs.root.style.display = 'block'
   }
 
-  hide () {
+  public hide () {
     this.refs.root.style.display = 'none'
+  }
+
+  public destroy () {
+    this.refs.root.remove()
+    this.styleInjector.disable()
   }
 
   private handleClose () {

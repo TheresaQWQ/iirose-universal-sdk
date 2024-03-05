@@ -81,6 +81,10 @@ export class SidebarItem {
     this.rootContainerElement.appendChild(this.ref)
   }
 
+  public destroy () {
+    this.ref.remove()
+  }
+
   get element () {
     return this.ref
   }
