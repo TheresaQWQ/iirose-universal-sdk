@@ -12,8 +12,8 @@ export interface WebWindowConfig {
   },
   size: {
     resize: boolean,
-    width: number,
-    height: number
+    width: string,
+    height: string
   },
   id: string
 }
@@ -48,7 +48,7 @@ export class WebWindow {
 
     this.refs.root.classList.add(window.window)
     this.refs.header.classList.add(window.header)
-    this.refs.body.classList.add("windowBody")
+    // this.refs.body.classList.add("windowBody")
 
     this.refs.root.appendChild(this.refs.header)
     this.refs.root.appendChild(this.refs.body)
@@ -58,7 +58,7 @@ export class WebWindow {
     icon.classList.add(window.icon)
 
     if (this.config.icon.type === 'iirose' && this.config.icon.iirose) {
-      icon.classList.add(`mdi-${this.config.icon.iirose}`)
+      icon.classList.add(`mdi-${this.config.icon.iirose}`, window.iiroseIcon)
     } else if (this.config.icon.type === 'text' && this.config.icon.text) {
       icon.innerText = this.config.icon.text
       icon.style.fontSize = '18px !important'
@@ -101,6 +101,7 @@ export class WebWindow {
     }
 
     const moveFunc = (event: MouseEvent) => {
+      event.stopPropagation()
       const x = event.clientX - offset.x
       const y = event.clientY - offset.y
 
@@ -113,6 +114,7 @@ export class WebWindow {
     }
 
     this.refs.header.addEventListener('mousedown', (event) => {
+      event.stopPropagation()
       // offset.x = event.offsetX
       // offset.y = event.offsetY
 
@@ -123,15 +125,17 @@ export class WebWindow {
       document.addEventListener('mousemove', moveFunc)
     })
 
-    this.refs.header.addEventListener('mouseup', () => {
+    this.refs.header.addEventListener('mouseup', (event) => {
+      event.stopPropagation()
       document.removeEventListener('mousemove', moveFunc)
     })
 
     this.updateWindowSize()
 
     // 点击窗口任意位置，让窗口显示在最上层
-    this.refs.root.addEventListener('mousedown', () => {
+    this.refs.root.addEventListener('mousedown', (event) => {
       this.refs.root.style.zIndex = "999999"
+      event.stopPropagation()
     })
 
     // 拦截右键
@@ -146,6 +150,8 @@ export class WebWindow {
         this.refs.root.style.zIndex = "99999"
       }
     })
+
+    this.hide()
   }
 
   private isOutOfBrowser (x: number, y: number) {
@@ -165,8 +171,8 @@ export class WebWindow {
     const width = this.config.size.width
     const height = this.config.size.height
 
-    this.refs.root.style.width = `${width}px`
-    this.refs.root.style.height = `${height}px`
+    this.refs.root.style.width = width
+    this.refs.root.style.height = height
   }
 
   public show () {

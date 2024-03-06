@@ -1,4 +1,4 @@
-import { decode } from 'html-entities'
+import { unescapeHtml } from '../../iirose/vars'
 import { events } from '../ws'
 
 interface data {
@@ -25,9 +25,9 @@ export default (message: string) => {
           const msg = {
             timestamp: Number(tmp[0]),
             uid: tmp[1],
-            username: decode(tmp[2]),
+            username: unescapeHtml(tmp[2]),
             avatar: tmp[3],
-            message: decode(tmp[4]),
+            message: unescapeHtml(tmp[4]),
             color: tmp[5],
             messageId: Number(tmp[10])
           }

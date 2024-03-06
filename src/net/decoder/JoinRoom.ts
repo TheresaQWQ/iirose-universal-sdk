@@ -1,5 +1,5 @@
-import { decode } from 'html-entities'
 import { events } from '../ws'
+import { unescapeHtml } from '../../iirose/vars'
 
 export interface SystemMessage {
   timestamp: number,
@@ -19,7 +19,7 @@ export default (message: string) => {
         const msg = {
           timestamp: Number(tmp[0]),
           avatar: tmp[1],
-          username: decode(tmp[2]),
+          username: unescapeHtml(tmp[2]),
           color: tmp[5],
           uid: tmp[8],
           title: tmp[9],

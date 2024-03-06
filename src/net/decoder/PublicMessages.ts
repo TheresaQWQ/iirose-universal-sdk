@@ -1,5 +1,5 @@
-import { decode } from 'html-entities'
 import { events } from '../events'
+import { unescapeHtml } from '../../iirose/vars'
 
 export interface replyMessage {
   message: string,
@@ -29,8 +29,8 @@ const replyMsg = (msg: string): replyMessage[] | null => {
         const user = tmp[1].split('_')
 
         replies.unshift({
-          message: decode(tmp[0]),
-          username: decode(user[0]),
+          message: unescapeHtml(tmp[0]),
+          username: unescapeHtml(user[0]),
           time: Number(user[1])
         })
 
@@ -68,8 +68,8 @@ export default (input: string) => {
           events.emit('message.public', {
             timestamp: Number(tmp[0]),
             avatar: tmp[1],
-            username: decode(tmp[2]),
-            message: decode(reply ? String(reply.shift()) : tmp[3]),
+            username: unescapeHtml(tmp[2]),
+            message: unescapeHtml(reply ? String(reply.shift()) : tmp[3]),
             color: tmp[5],
             uid: tmp[8],
             title: tmp[9],
@@ -82,7 +82,7 @@ export default (input: string) => {
             const msg = {
               timestamp: Number(tmp[0]),
               avatar: tmp[1],
-              username: decode(tmp[2]),
+              username: unescapeHtml(tmp[2]),
               color: tmp[5],
               uid: tmp[8],
               title: tmp[9],
@@ -96,7 +96,7 @@ export default (input: string) => {
             const msg = {
               timestamp: Number(tmp[0]),
               avatar: tmp[1],
-              username: decode(tmp[2]),
+              username: unescapeHtml(tmp[2]),
               color: tmp[5],
               uid: tmp[8],
               title: tmp[9],
@@ -111,7 +111,7 @@ export default (input: string) => {
             const msg = {
               timestamp: Number(tmp[0]),
               avatar: tmp[1],
-              username: decode(tmp[2]),
+              username: unescapeHtml(tmp[2]),
               color: tmp[5],
               uid: tmp[8],
               title: tmp[9],
@@ -135,8 +135,8 @@ export default (input: string) => {
         const msg = {
           timestamp: Number(tmp[0]),
           avatar: tmp[1],
-          username: decode(tmp[2]),
-          message: decode(message),
+          username: unescapeHtml(tmp[2]),
+          message: unescapeHtml(message),
           color: tmp[5],
           uid: tmp[8],
           title: tmp[9],

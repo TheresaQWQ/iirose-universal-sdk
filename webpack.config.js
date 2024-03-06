@@ -1,13 +1,21 @@
 const path = require("path");
 
 module.exports = (env, argv) => ({
-  entry: "./src/index.ts",
+  entry: {
+    full: "./packages/loader.ts",
+  },
   output: {
     filename: "bundle.js",
     path: path.join(__dirname, argv.mode === "production" ? "dist" : ".dev"),
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".ts", ".js", ".jsx"],
+    alias: {
+      react: "preact/compat",
+      "react-dom/test-utils": "preact/test-utils",
+      "react-dom": "preact/compat",
+      "react/jsx-runtime": "preact/jsx-runtime",
+    },
   },
   module: {
     rules: [
@@ -19,30 +27,42 @@ module.exports = (env, argv) => ({
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
-              modules: true
-            }
-          }
-        ]
-      }
+              modules: true,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.jsx$/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              plugins: [["@babel/plugin-transform-react-jsx", {pragma:'h'}]],
+            },
+          },
+        ],
+      },
     ],
   },
   devServer: {
-    allowedHosts: 'all',
-    server: 'https',
+    allowedHosts: "all",
+    server: "https",
     client: {
-      webSocketURL: 'wss://localhost:8080/ws',
+      webSocketURL: "wss://localhost:8080/ws",
       progress: true,
       reconnect: true,
       overlay: false,
     },
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
-    }
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers":
+      "X-Requested-With, content-type, Authorization",
+    },
   },
 });

@@ -1,3 +1,5 @@
+import { IIROSEWebSocket } from "./ws"
+
 // uid
 export const uid = () => {
   // @ts-ignore
@@ -55,10 +57,12 @@ export const room = {
     return list[list.length - 1]
   },
 
+  // 房间名
   get name() {
     return room.raw[1]
   },
 
+  // 房间主题色
   get color() {
     return room.raw[2]
   },
@@ -77,4 +81,12 @@ export const room = {
     // @ts-ignore
     return typeMap[room.raw[3]]
   }
+}
+
+// @ts-ignore
+export const socket: IIROSEWebSocket = window.socket
+
+export const unescapeHtml = (str: string) => {
+  // @ts-ignore
+  return window.unhtmlspecialcharsAll(str)
 }
