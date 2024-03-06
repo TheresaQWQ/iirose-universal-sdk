@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "serve": "webpack serve --mode development"
+    "dev:full": "cross-env TARGET=full webpack --mode development",
+    "build:full": "cross-env TARGET=full webpack --mode production",
+    "build:sdk": "cross-env TARGET=sdk webpack --mode production",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist/types ./src/index.ts",
+    "serve": "cross-env TARGET=full webpack serve --mode development"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
@@ -12,7 +14,8 @@
     "typescript": "*",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.2"
+    "webpack-dev-server": "^5.0.2",
+    "cross-env": "^7.0.3"
   },
   "dependencies": {
     "babel-loader": "9",

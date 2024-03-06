@@ -48,7 +48,7 @@ export class WebWindow {
 
     this.refs.root.classList.add(window.window)
     this.refs.header.classList.add(window.header)
-    // this.refs.body.classList.add("windowBody")
+    this.refs.body.classList.add(window.body)
 
     this.refs.root.appendChild(this.refs.header)
     this.refs.root.appendChild(this.refs.body)

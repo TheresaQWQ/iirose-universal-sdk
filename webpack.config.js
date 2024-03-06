@@ -1,11 +1,9 @@
 const path = require("path");
 
 module.exports = (env, argv) => ({
-  entry: {
-    full: "./packages/loader.ts",
-  },
+  entry: `./packages/loader.${process.env.TARGET}.ts`,
   output: {
-    filename: "bundle.js",
+    filename: `bundle.${process.env.TARGET}.js`,
     path: path.join(__dirname, argv.mode === "production" ? "dist" : ".dev"),
   },
   resolve: {

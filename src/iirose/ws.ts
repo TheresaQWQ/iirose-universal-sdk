@@ -16,8 +16,10 @@ const hooks: {
 
 // Hook掉花园的websocket
 export const getHookedSocket = (onmessage: (data: any) => boolean, send: (data: any) => boolean) => {
-  hooks.onmsg.push(onmessage)
-  hooks.onsend.push(send)
+  console.log(`[WebSocket Hook] create new hooked socket: ${new Error().stack}`)
+
+  !hooks.onmsg.includes(onmessage) && hooks.onmsg.push(onmessage)
+  !hooks.onsend.includes(send) && hooks.onsend.push(send)
 
   return true
 }

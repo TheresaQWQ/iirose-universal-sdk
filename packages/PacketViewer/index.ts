@@ -1,25 +1,26 @@
+import "./ui.render.jsx"
 import sdk from "../loader.sdk";
-import render_ui from './ui/ui.render.jsx'
+import render_ui from './ui.render.jsx'
 
 const window = new sdk.ui.window({
-  title: "自定义媒体点播",
+  title: "数据包浏览器",
   icon: {
     type: "iirose",
-    iirose: 'music'
+    iirose: 'cog'
   },
-  id: "custom-music-player",
+  id: "packet-viewer",
   size: {
-    width: "320px",
-    height: "400px",
+    width: "360px",
+    height: "500px",
     resize: true
   }
 })
 
 const sidebar = new sdk.ui.sidebar(sdk.types.SidebarRoots.Tools, {
-  title: "自定义媒体点播",
+  title: "数据包浏览器",
   icon: {
     type: "iirose",
-    iirose: 'music'
+    iirose: 'cog'
   },
   onClick: () => {
     window.show()
