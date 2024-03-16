@@ -1,15 +1,15 @@
 export enum SidebarRoots {
-  Navigation = '#functionHolder > div > div:nth-child(2)',
-  Section = '#functionHolder > div > div:nth-child(4)',
-  Shopping = '#functionHolder > div > div:nth-child(6)',
-  Tools = '#functionHolder > div > div:nth-child(8)',
-  Function = '#functionHolder > div > div:nth-child(10)',
-  System = '#functionHolder > div > div:nth-child(12)',
-  Others = '#functionHolder > div > div:nth-child(14)',
-  Box = '#functionHolder > div > div:nth-child(16)',
-  Subscriptions = '#functionHolder > div > div:nth-child(18)',
-  Contacts = '#functionHolder > div > div:nth-child(20)',
-  Message = '#functionHolder > div > div:nth-child(22)'
+  Navigation = 0,
+  Section = 1,
+  Shopping = 2,
+  Tools = 3,
+  Function = 4,
+  System = 5,
+  Others = 6,
+  Box = 7,
+  Subscriptions = 8,
+  Contacts = 9,
+  Message = 10
 }
 
 export interface SidebarItemConfig {
@@ -31,7 +31,7 @@ export class SidebarItem {
   private ref: HTMLElement
 
   constructor (target: SidebarRoots, config: SidebarItemConfig) {
-    this.rootTabElement = document.querySelector(target) as HTMLElement
+    this.rootTabElement = document.querySelectorAll("#functionHolder > div > div.functionButtonGroup")[target] as HTMLElement
     
     const parent = this.rootTabElement.parentElement as HTMLElement
     const childArr = Array.from(parent.children)
