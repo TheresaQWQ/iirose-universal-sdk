@@ -1,4 +1,4 @@
-import { getHookedSocket } from "../../src/iirose/ws";
+import { addInputHook } from "../../src/iirose/MessageInput";
 import sdk from "../loader.sdk";
 import render_ui from './ui/window.render.jsx'
 
@@ -20,29 +20,13 @@ window.init()
 
 const {setKeyword} = render_ui(window.refs.body, window)
 
-getHookedSocket(() => true, (data: string) => {
-  try {
-    const json = JSON.parse(data)
+addInputHook(input => {
+  if (!input.startsWith('!') && !input.startsWith('！')) {
+    return false
+  }
 
-    if (json.m && json.mc && json.i) {
-      const message = json.m as string
-      // 5b0432f77047f_700751597414
-      const id = `${sdk.iirose.uid()}_${json.i}`
-
-      if (message.startsWith('!') || message.startsWith('！') && message.length > 1) {
-        const keyword = message.substring(1)
-        setKeyword(keyword)
-
-        setTimeout(() => {
-          const e = document.querySelector(`.msg[data-id="${id}"]`)
-          e && e.remove()
-        }, 100);
-
-        return false
-      }
-    }
-  } catch (error) {}
-
+  const keyword = input.substring(1)
+  setKeyword(keyword)
   return true
 })
 

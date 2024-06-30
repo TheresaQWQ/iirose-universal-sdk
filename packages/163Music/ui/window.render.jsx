@@ -24,6 +24,8 @@ const App = (props) => {
   const [songs, setSongs] = useState([])
 
   useEffect(() => {
+    if (props.keyword === '') return
+    setSongs([])
     search(props.keyword).then(data => setSongs(data))
   }, [props.keyword])
 

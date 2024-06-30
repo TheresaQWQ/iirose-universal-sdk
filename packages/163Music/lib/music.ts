@@ -15,27 +15,11 @@ export const search = async (keyword: string) => {
   }))
 }
 
-const createSign = async (id: string) => {
-  const token = '2126696677'
-  const time = Date.now()
-  const text = `${id}.metadata.${time}|${token}`
-
-  const hash = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-  const hex = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
-
-  return {
-    sign: hex,
-    time: time
-  };
-}
-
 export const play = async (id: string) => {
   sdk.ui.toast.toast(`加载中...`)
 
   try {
-    const {sign, time} = await createSign(id)
-
-    const resp = await fetch(`https://ifs.imoe.xyz/api/v1/163?id=${id}&type=metadata&time=${time}&sign=${sign}`)
+    const resp = await fetch(`https://xc.null.red:8043/meting-api/?type=302&id=${id}`)
     const metadata = await resp.json()
   
     sdk.iirose.socket._send(`&1${JSON.stringify({
@@ -44,7 +28,7 @@ export const play = async (id: string) => {
       d: metadata.time/1e3,
       n: metadata.name,
       o: '',
-      r: metadata.auther,
+      r: metadata.author,
       s: metadata.url.substring(4) + `&fd=${id}.mp3`,
       l: metadata.lrc_control
     })}`)
